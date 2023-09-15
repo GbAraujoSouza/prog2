@@ -31,6 +31,7 @@ int main(int argc, char *argv[]) {
 }
 
 void inverteString(char *string) {
+    // no trecho "strlen(string) - 2" diminuimos por 2 pos nao queremos inverter o caractere '\n'
     for (int i = 0, j = strlen(string) - 2; i < strlen(string) / 2; i++, j--) {
         char temp = *(string + i);
         *(string + i) = *(string + j);
