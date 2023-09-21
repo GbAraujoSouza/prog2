@@ -45,5 +45,11 @@ int main() {
 
     printf("%d\n", maiorSoma);
 
+    // liberar memoria 
+    for (int linha = 0; linha < L; linha++) {
+        free(*(plantacao + linha));
+    }
+    free(plantacao);
+
     return 0;
 }
