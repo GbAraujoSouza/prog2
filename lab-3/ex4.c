@@ -7,18 +7,31 @@ void inverteString(char *str);
 
 int main(int argc, char *argv[]) {
 
+    if (argc != 3) {
+        puts("ERRO! Utilização do programa: ./ex4 <arquivo de entrada> <arquivo de saída>");
+        return -1;
+    }
+
     char *arqEntrada = argv[1];
     char *arqSaida = argv[2];
+
     FILE *pArqEntrada, *pArqSaida;
-    pArqEntrada = fopen(arqEntrada, "r");
-    pArqSaida = fopen(arqSaida, "w");
+
+    if ((pArqEntrada = fopen(arqEntrada, "r")) == NULL) {
+        puts("Não foi possível abrir o arquivo de entrada");
+        return -1;
+    }
+    if ((pArqSaida = fopen(arqSaida, "w")) == NULL) {
+        puts("Não foi possível abrir o arquivo de saída");
+        return -1;
+    }
 
     char linha[MAX];
     fgets(linha, MAX, pArqEntrada);
     while (!feof(pArqEntrada)) {
         // inverter a linha
         inverteString(linha);
-        //escrever a linha na saida
+        //escrever a linha na saída
         fputs(linha, pArqSaida);
         fgets(linha, MAX, pArqEntrada);
     }
@@ -31,7 +44,7 @@ int main(int argc, char *argv[]) {
 }
 
 void inverteString(char *string) {
-    // no trecho "strlen(string) - 2" diminuimos por 2 pos nao queremos inverter o caractere '\n'
+    // no trecho "strlen(string) - 2" diminuímos por 2 pos nao queremos inverter o caractere '\n'
     for (int i = 0, j = strlen(string) - 2; i < strlen(string) / 2; i++, j--) {
         char temp = *(string + i);
         *(string + i) = *(string + j);
