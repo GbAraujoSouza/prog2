@@ -25,7 +25,7 @@ int main() {
         char nome[50];
         float p1, p2, trabalho;
         fscanf(arquivoNotas, "%[a-zA-Z a-zA-Z] %f %f %f\n", nome, &p1, &p2, &trabalho);
-        fprintf(arquivoMedias, "%s%.1f\n", nome, ((p1 + p2)*0.8 + trabalho * 0.2));
+        fprintf(arquivoMedias, "%s%.1f\n", nome, (((p1 + p2)/2)*0.8 + trabalho * 0.2));
     }
     
     fclose(arquivoMedias);
