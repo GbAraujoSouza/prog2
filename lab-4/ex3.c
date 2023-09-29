@@ -13,6 +13,7 @@ int main() {
     int A, C;
     fscanf(tempos, "%d %d\n", &A, &C);
 
+    // matriz onde cada linha contem o registro de tempo de cada atleta
     int **registro = (int**)malloc(A * sizeof(int*));
     if (registro == NULL) {
         printf("Erro ao alocar memoria\n");
@@ -20,10 +21,12 @@ int main() {
 
     int atleta = 0;
     while(!feof(tempos)) {
+        // cada posicao do array corridas possui um registro de tempo
         int* corridas = (int*)malloc(C*sizeof(int));
         if (corridas == NULL) {
             printf("Erro ao alocar memoria\n");
         }
+
         for (int corrida = 0; corrida < C; corrida++){
             int horas, minutos, segundos, tempoTotal;
             fscanf(tempos, "%d %d %d", &horas, &minutos, &segundos);
@@ -34,6 +37,7 @@ int main() {
         atleta++;
     }
 
+    // encontrar na matriz registros a linha que conte a menor soma de tempos
     int menorTempo = INT_MAX, melhorIndex = 0; 
     for (int i = 0; i < A; i++)
     {
@@ -49,6 +53,13 @@ int main() {
     }
     
     printf("%d\n", melhorIndex + 1);
+
+    // liberar memória
+    for (int i = 0; i < A; i++) {
+        free(*(registro + i));
+    }
+    free(registro);
+    fclose(tempos);
 
     return 0;
 }
