@@ -33,7 +33,7 @@ int main() {
         strcpy(aluno.nome, nome);
 
         // Aparentemente, o fgets está armazenando um \n ao final da string nome.
-        // otrecho abaixo resolve esse problema
+        // o trecho abaixo resolve esse problema
         size_t newline_pos = strcspn(aluno.nome, "\n");
         if (aluno.nome[newline_pos] == '\n') {
             aluno.nome[newline_pos] = '\0';
