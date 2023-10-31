@@ -111,16 +111,17 @@ bool ehExpressaoValida(char expressao[]) {
                 return false;
             }
 
-            REGISTRO c1, c2;
+            REGISTRO c1;
             excluirElemPilha(&p, &c1);
             inverteParenteses(&c1);
-            excluirElemPilha(&p, &c2);
-            if (c1.chave != c2.chave){
+            if (c1.chave != expressao[i]){
                 return false;
             }
         }
     }
-    return true;
+    if (estaVazia(&p))
+        return true;
+    return false;
 }
 
 void inverteParenteses(REGISTRO* parenteses) {
