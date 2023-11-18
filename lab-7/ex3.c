@@ -1,4 +1,9 @@
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <math.h>
+
+#include <stdio.h>
 #include <stdlib.h>
 #define true 1
 #define false 0
@@ -6,7 +11,6 @@ typedef int bool;
 typedef int TIPOCHAVE;
 typedef struct {
     TIPOCHAVE chave;
-    // outros campos...
 } REGISTRO;
 
 typedef struct aux {
@@ -79,7 +83,7 @@ bool exclui(LISTA* l, int pos) {
             return true;
 }
 
-void reinicializarFila(LISTA* l) {
+void reinicializarLista(LISTA* l) {
     PONT end = l->inicio;
     while (end != NULL) {
         PONT apagar = end;
@@ -97,25 +101,61 @@ void concatenaListas(LISTA* l1, LISTA* l2) {
     end->prox = l2->inicio;
 }
 
+bool iguaisListas(LISTA* l1, LISTA* l2) {
+    if (tamanho(l1) != tamanho(l2))
+        return false;
+
+    PONT pLista1 = l1->inicio;
+    PONT pLista2 = l2->inicio;
+
+    while (pLista1 != NULL) {
+        if (pLista1->reg.chave != pLista2->reg.chave) {
+            return false;
+        }
+        pLista1 = pLista1->prox;
+        pLista2 = pLista2->prox;
+    }
+    return true;
+}
+
 int main () {
 
     LISTA l1, l2;
     inicializarLista(&l1);
     inicializarLista(&l2);
 
-    // preencher lista 1 e 2
-    for (int i = 1; i <= 10; i++) {
+    // preencher lista 1
+    printf("Lista 1 (tam 5): ");
+    for (int i = 0; i < 5; i++) {
         REGISTRO r;
-        r.chave = i;
-        if (i <= 5){
-            insere(&l1, r, tamanho(&l1));
-        }else {
-            insere(&l2, r, tamanho(&l2));
-        }
+        scanf("%d", &r.chave);
+        insere(&l1, r, i);
+    }
+    // preencher lista 2
+    printf("Lista 2 (tam 5): ");
+    for (int i = 0; i < 5; i++) {
+        REGISTRO r;
+        scanf("%d", &r.chave);
+        insere(&l2, r, i);
     }
 
     exibirLista(&l1);
     exibirLista(&l2);
+
+    // Exemplo Concatenar:
+    // concatenaListas(&l1, &l2);
+    // puts("Nova lista concatenada: ");
+    // exibirLista(&l1);
+
+    // Exemplo listas iguais
+    if (iguaisListas(&l1, &l2)) {
+        puts("Listas iguais");
+    } else {
+        puts("Listas diferentes");
+    }
+
+    reinicializarLista(&l1);
+    reinicializarLista(&l2);
 
     return 0;
 }
