@@ -115,6 +115,19 @@ bool iguaisListas(LISTA* l1, LISTA* l2) {
         pLista1 = pLista1->prox;
         pLista2 = pLista2->prox;
     }
+}
+
+bool modificaElem(LISTA* l, REGISTRO reg, int pos) {
+    if (pos > tamanho(l)-1 || tamanho(l) == 0)
+        return false;
+
+    PONT p = l->inicio;
+    int i = 0;
+    while (i < pos) {
+        p = p->prox;
+        i++;
+    }
+    p->reg = reg;
     return true;
 }
 
@@ -148,11 +161,22 @@ int main () {
     // exibirLista(&l1);
 
     // Exemplo listas iguais
-    if (iguaisListas(&l1, &l2)) {
-        puts("Listas iguais");
-    } else {
-        puts("Listas diferentes");
+    // if (iguaisListas(&l1, &l2)) {
+    //     puts("Listas iguais");
+    // } else {
+    //     puts("Listas diferentes");
+    // }
+
+    // Exemplo Modifica Elemento (zerar lista 1):
+    REGISTRO r;
+    r.chave = 0;
+    int i = 0;
+    while (i < tamanho(&l1)) {
+        modificaElem(&l1, r, i);
+        i++;
     }
+    puts("Lista 1 zerada");
+    exibirLista(&l1);
 
     reinicializarLista(&l1);
     reinicializarLista(&l2);
