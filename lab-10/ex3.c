@@ -48,7 +48,7 @@ void exibirLista(LISTA* l) {
     printf("\"\n");
 }
 
-bool insere(LISTA* l, REGISTRO reg) {
+void insere(LISTA* l, REGISTRO reg) {
     ELEMENTO* novo = (ELEMENTO*) malloc(sizeof(ELEMENTO));
     novo->reg = reg;
     ELEMENTO* p = l->inicio;
@@ -64,8 +64,15 @@ bool insere(LISTA* l, REGISTRO reg) {
             novo->prox = NULL;
         }
     } else {
+        int i = 0;
+        if (p->reg.chave > novo->reg.chave) {
+            novo->prox = l->inicio;
+            l->inicio = novo;
+            return;
+        }
         while(p->prox != NULL && p->prox->reg.chave < novo->reg.chave) {
             p = p->prox;
+            i++;
         }
         novo->prox = p->prox;
         p->prox = novo;
@@ -107,16 +114,19 @@ int main() {
     int tam;
     printf("tamanho do vetor: ");
     scanf("%d", &tam);
-    for (int i = 0; i < tam; i++)
-    {
+    for (int i = 0; i < tam; i++) {
         REGISTRO r;
         scanf("%d", &r.chave);
         insere(&li, r);
 
-        exibirLista(&li);
     }
+    exibirLista(&li);
+
+    exclui(&li, 3);
     
-    
+    exibirLista(&li);
+
+    reinicializarLista(&li);
 
     return 0;
 }
